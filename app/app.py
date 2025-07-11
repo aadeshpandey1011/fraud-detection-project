@@ -120,7 +120,6 @@
 
 
 
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -132,29 +131,25 @@ from dotenv import load_dotenv
 load_dotenv()
 
 st.set_page_config(page_title="Insurance Fraud Detector 💼", layout="wide")
+
+# Load ML model
 model = load_model()
 
-# 🌙 Custom Dark Theme + Form Styling
+# Light Theme Styling (Default Streamlit Look)
 st.markdown("""
     <style>
-    .stApp {
-        background-color: #121212;
-        color: white;
-    }
-    .stForm {
-        background-color: #1e1e1e;
-        padding: 2rem;
-        border-radius: 12px;
-        width: 50%;
-        margin: auto;
-    }
-    input, textarea, select {
-        background-color: white !important;
-        color: black !important;
-    }
-    .stTextInput > div > div > input::placeholder {
-        color: gray;
-    }
+        .stApp {
+            background-color: white;
+            color: black;
+        }
+        .form-container {
+            width: 60%;
+            margin: auto;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -164,6 +159,7 @@ st.subheader("Predict claim legitimacy using AI")
 tab1, tab2 = st.tabs(["📥 Manual Entry", "📁 File Upload"])
 
 with tab1:
+    st.markdown('<div class="form-container">', unsafe_allow_html=True)
     st.markdown("### ✍️ Enter Claim Details")
 
     with st.form(key="input_form"):
@@ -182,6 +178,7 @@ with tab1:
         patientemploymentstatus = st.selectbox("Employment", ["Employed", "Unemployed"])
 
         submit = st.form_submit_button("🔮 Predict Fraud")
+    st.markdown('</div>', unsafe_allow_html=True)
 
     if submit:
         input_df = pd.DataFrame([{
