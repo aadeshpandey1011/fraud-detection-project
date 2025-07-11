@@ -156,6 +156,29 @@ st.markdown("""
 st.title("🔍 Insurance Fraud Detection System")
 st.subheader("Predict claim legitimacy using AI")
 
+# Project Overview Section
+st.markdown("## 📘 Project Overview")
+st.markdown("""
+The **Insurance Fraud Detection System** is a machine learning-powered web app designed to intelligently predict the likelihood of fraud in health insurance claims. 
+Leveraging data analysis, statistical models, and domain-specific features, this tool helps insurance professionals detect anomalies in real-time.
+
+### 🔧 Key Capabilities:
+- Predict if a claim is **fraudulent** or **legitimate** based on user inputs or bulk CSV files.
+- Confidence-based visualization for better understanding of predictions.
+- Modern UI and clean experience using Streamlit.
+- Future-ready for **authentication**, **explainability**, and **full-stack migration**.
+
+### 🚀 Powered By:
+- **Python** for scripting
+- **Machine Learning** models for classification
+- **Streamlit** for UI and interactivity
+- **Matplotlib/Seaborn** for visuals
+""")
+
+# Add relevant image (you can use a URL or local image path)
+st.image("https://cdn.analyticsvidhya.com/wp-content/uploads/2020/03/Python-1.jpg", caption="Python + ML + Streamlit = Intelligent Detection")
+
+
 tab1, tab2 = st.tabs(["📥 Manual Entry", "📁 File Upload"])
 
 with tab1:
