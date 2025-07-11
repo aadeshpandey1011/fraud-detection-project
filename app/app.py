@@ -183,6 +183,30 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+
+# Project Overview Section
+st.markdown("## 📘 Project Overview")
+st.markdown("""
+The **Insurance Fraud Detection System** is a machine learning-powered web app designed to intelligently predict the likelihood of fraud in health insurance claims. 
+Leveraging data analysis, statistical models, and domain-specific features, this tool helps insurance professionals detect anomalies in real-time.
+
+### 🔧 Key Capabilities:
+- Predict if a claim is **fraudulent** or **legitimate** based on user inputs or bulk CSV files.
+- Confidence-based visualization for better understanding of predictions.
+- Modern UI and clean experience using Streamlit.
+- Future-ready for **authentication**, **explainability**, and **full-stack migration**.
+
+### 🚀 Powered By:
+- **Python** for scripting
+- **Machine Learning** models for classification
+- **Streamlit** for UI and interactivity
+- **Matplotlib/Seaborn** for visuals
+""")
+
+# Add relevant image (you can use a URL or local image path)
+st.image("https://www.shutterstock.com/shutterstock/photos/2543432193/display_1500/stock-photo-ai-machine-learning-and-neural-networks-the-robot-s-hand-touches-the-human-hand-2543432193.jpg", caption="Python + ML + Streamlit = Intelligent Detection")
+
+
 # 📥 Tabs
 tab1, tab2 = st.tabs(["✍️ Manual Entry", "📁 File Upload"])
 
