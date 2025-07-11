@@ -3,7 +3,8 @@ pymongo
 python-dotenv
 streamlit
 pandas
-numpy
+numpy==1.26.4
+
 scikit-learn
 joblib
 matplotlib
