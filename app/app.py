@@ -121,48 +121,51 @@
 
 
 
-
-# app/app.py
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from utils import load_model, preprocess_input
-
 from dotenv import load_dotenv
 
 load_dotenv()
 
 st.set_page_config(page_title="Insurance Fraud Detector 💼", layout="wide")
-
-# Load model
 model = load_model()
 
-# 🔧 Dark Theme Styling
+# 🌙 Custom Dark Theme + Form Styling
 st.markdown("""
     <style>
-        .stApp {
-            background-color: #121212;
-            color: white;
-        }
-        input, textarea, select, .css-1cpxqw2 {
-            background-color: #2e2e2e !important;
-            color: white !important;
-        }
+    .stApp {
+        background-color: #121212;
+        color: white;
+    }
+    .stForm {
+        background-color: #1e1e1e;
+        padding: 2rem;
+        border-radius: 12px;
+        width: 50%;
+        margin: auto;
+    }
+    input, textarea, select {
+        background-color: white !important;
+        color: black !important;
+    }
+    .stTextInput > div > div > input::placeholder {
+        color: gray;
+    }
     </style>
 """, unsafe_allow_html=True)
 
-# 🏷️ Title and Header
 st.title("🔍 Insurance Fraud Detection System")
 st.subheader("Predict claim legitimacy using AI")
 
-# 📌 Tabs
 tab1, tab2 = st.tabs(["📥 Manual Entry", "📁 File Upload"])
 
-# 📥 Manual Entry Tab
 with tab1:
     st.markdown("### ✍️ Enter Claim Details")
+
     with st.form(key="input_form"):
         claimamount = st.number_input("Claim Amount", min_value=0.0)
         patientage = st.number_input("Patient Age", min_value=0)
@@ -172,9 +175,9 @@ with tab1:
         providerspecialty = st.selectbox("Provider Specialty", ["Cardiology", "General", "Orthopedic"])
         claimtype = st.selectbox("Claim Type", ["Inpatient", "Outpatient"])
         claimsubmissionmethod = st.selectbox("Submission Method", ["Online", "Paper"])
-        diagnosiscode = st.text_input("Diagnosis Code")
-        procedurecode = st.text_input("Procedure Code")
-        providerlocation = st.text_input("Provider Location")
+        diagnosiscode = st.text_input("Diagnosis Code", placeholder="E.g., D123")
+        procedurecode = st.text_input("Procedure Code", placeholder="E.g., P456")
+        providerlocation = st.text_input("Provider Location", placeholder="City or ZIP")
         patientmaritalstatus = st.selectbox("Marital Status", ["Single", "Married"])
         patientemploymentstatus = st.selectbox("Employment", ["Employed", "Unemployed"])
 
@@ -206,14 +209,12 @@ with tab1:
         st.markdown(f"### 🧠 Prediction: {'🚨 Fraudulent' if pred == 1 else '✅ Legitimate'}")
         st.markdown(f"#### 🔎 Probability of Fraud: `{round(prob * 100, 2)}%`")
 
-        # 📊 Confidence Bar Chart
         fig, ax = plt.subplots()
         ax.bar(["Legit", "Fraud"], [1 - prob, prob], color=["#2ecc71", "#e74c3c"])
         ax.set_ylabel("Confidence")
         ax.set_title("Prediction Confidence")
         st.pyplot(fig)
 
-# 📁 File Upload Tab
 with tab2:
     st.markdown("### 📁 Upload CSV File")
 
@@ -235,7 +236,6 @@ with tab2:
         st.markdown("### 🧾 Prediction Output")
         st.dataframe(data[["Fraud_Label", "Fraud_Probability"]])
 
-        # 📈 Fraud Distribution Chart
         fig, ax = plt.subplots()
         sns.countplot(x="Fraud_Prediction", data=data, palette=["#2ecc71", "#e74c3c"], ax=ax)
         ax.set_xticklabels(["Legit", "Fraud"])
@@ -243,7 +243,6 @@ with tab2:
         ax.set_title("Fraud Prediction Distribution")
         st.pyplot(fig)
 
-        # 💾 Download Button
         csv_out = data.to_csv(index=False)
         st.download_button(
             label="📥 Download Predictions CSV",
