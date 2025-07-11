@@ -8,3 +8,4 @@ scikit-learn
 joblib
 matplotlib
 seaborn
+shap==0.44.1
