@@ -43,5 +43,10 @@ def main():
     y.to_csv("data/y.csv", index=False)
     print("✅ Saved preprocessed data to 'data/X.csv' and 'data/y.csv'")
 
+    print(df.columns)
+    print("Printing fraud counts:")
+    print(df['claimlegitimacy'].value_counts())
+
+
 if __name__ == "__main__":
     main()

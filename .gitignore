@@ -1,3 +1,9 @@
 # Ignore large data files
 data/X.csv
 data/y.csv
+
+
+# Ignore Python cache files
+__pycache__/
+**/__pycache__/
+*.py[cod]

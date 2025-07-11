@@ -24,7 +24,12 @@ def tune_random_forest(X_train, y_train):
         'min_samples_leaf': [1, 2],
     }
 
-    rf = RandomForestClassifier(random_state=42)
+    rf = RandomForestClassifier(
+    n_estimators=100,
+    class_weight="balanced",  # <-- Important
+    random_state=42
+    )
+
     grid = GridSearchCV(rf, param_grid, cv=5, scoring='roc_auc', verbose=1, n_jobs=-1)
     grid.fit(X_train, y_train)
 
@@ -39,7 +44,7 @@ def tune_logistic_regression(X_train, y_train):
         'solver': ['liblinear']
     }
 
-    lr = LogisticRegression(max_iter=1000)
+    lr = LogisticRegression(max_iter=2000,class_weight='balanced')
     grid = GridSearchCV(lr, param_grid, cv=5, scoring='roc_auc', verbose=1, n_jobs=-1)
     grid.fit(X_train, y_train)
 

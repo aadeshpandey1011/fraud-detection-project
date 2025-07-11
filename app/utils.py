@@ -2,8 +2,10 @@
 import pandas as pd
 import joblib
 
+
 def load_model():
-    return joblib.load("models/random_forest_best_model.pkl")
+    return joblib.load("models/logistic_best_model.pkl")
+
 
 def preprocess_input(df):
     # Minimal preprocessing assuming columns match training

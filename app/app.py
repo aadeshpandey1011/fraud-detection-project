@@ -121,12 +121,12 @@
 
 
 # app/app.py
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
+import shap
 from utils import load_model, preprocess_input
 from dotenv import load_dotenv
 
@@ -183,7 +183,6 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-
 # Project Overview Section
 st.markdown("## 📘 Project Overview")
 st.markdown("""
@@ -193,19 +192,16 @@ Leveraging data analysis, statistical models, and domain-specific features, this
 ### 🔧 Key Capabilities:
 - Predict if a claim is **fraudulent** or **legitimate** based on user inputs or bulk CSV files.
 - Confidence-based visualization for better understanding of predictions.
-- Modern UI and clean experience using Streamlit.
-- Future-ready for **authentication**, **explainability**, and **full-stack migration**.
+- SHAP explainability built-in for transparency.
+- Future-ready for **authentication** and **full-stack migration**.
 
 ### 🚀 Powered By:
 - **Python** for scripting
 - **Machine Learning** models for classification
 - **Streamlit** for UI and interactivity
 - **Matplotlib/Seaborn** for visuals
+- **SHAP** for explainable AI
 """)
-
-# Add relevant image (you can use a URL or local image path)
-st.image("https://www.shutterstock.com/shutterstock/photos/2543432193/display_1500/stock-photo-ai-machine-learning-and-neural-networks-the-robot-s-hand-touches-the-human-hand-2543432193.jpg", caption="Python + ML + Streamlit = Intelligent Detection")
-
 
 # 📥 Tabs
 tab1, tab2 = st.tabs(["✍️ Manual Entry", "📁 File Upload"])
@@ -260,13 +256,25 @@ with tab1:
             st.markdown(f"#### 🔎 Probability of Fraud: `{round(prob * 100, 2)}%`")
 
             # 📊 Confidence Chart
-            fig, ax = plt.subplots()
-            ax.bar(["Legit", "Fraud"], [1 - prob, prob], color=["#2ecc71", "#e74c3c"])
-            ax.set_ylabel("Confidence")
-            ax.set_title("Prediction Confidence")
+            fig, ax = plt.subplots(figsize=(6, 4))
+            bars = ax.bar(["Legit", "Fraud"], [1 - prob, prob], width=0.3, color=["#2ecc71", "#e74c3c"], edgecolor="black")
+            ax.set_ylabel("Confidence", fontsize=12)
+            ax.set_title("Prediction Confidence", fontsize=14)
+            ax.bar_label(bars, fmt="%.2f", fontsize=10)
+            ax.spines['top'].set_visible(False)
+            ax.spines['right'].set_visible(False)
             st.pyplot(fig)
 
-# 📁 File Upload
+            # 📊 SHAP Explainability
+            st.markdown("### 🧠 Model Explainability (SHAP)")
+            explainer = shap.Explainer(model, X_input)
+            shap_values = explainer(X_input)
+
+            # Summary Plot (single input)
+            fig_shap = shap.plots.bar(shap_values[0], show=False)
+            st.pyplot(bbox_inches='tight', dpi=300)
+
+# 📁 File Upload (no change)
 with tab2:
     st.subheader("Upload CSV File")
     file = st.file_uploader("Upload insurance claim data", type=["csv"])
@@ -287,7 +295,6 @@ with tab2:
         st.subheader("🧾 Prediction Output")
         st.dataframe(data[["Label", "Fraud_Probability"]])
 
-        # Chart
         fig, ax = plt.subplots()
         sns.countplot(x="Fraud_Prediction", data=data, palette=["#2ecc71", "#e74c3c"], ax=ax)
         ax.set_xticklabels(["Legit", "Fraud"])
@@ -295,7 +302,6 @@ with tab2:
         ax.set_title("Prediction Distribution")
         st.pyplot(fig)
 
-        # Download Button
         csv_out = data.to_csv(index=False)
         st.download_button(
             label="📥 Download CSV Results",
@@ -303,3 +309,18 @@ with tab2:
             file_name="fraud_predictions.csv",
             mime="text/csv"
         )
+
+
+
+# 📞 Contact Us Section
+st.markdown("---")
+st.markdown("## 📞 Contact Us")
+st.markdown("""
+If you have any questions, feedback, or would like to collaborate, feel free to reach out!
+
+- 📧 **Email:** [aadeshpandeyofficial1011@gmail.com](mailto:aadeshpandeyofficial1011@gmail.com)
+- 🧑‍💻 **GitHub:** [github.com/aadeshpandey1011](https://github.com/aadeshpandey1011)
+- 🌐 **Website:** [inureaionrender.com](https://insureaionrender.com) 
+
+We value transparency, innovation, and collaboration to make AI-driven insurance safer and smarter. 🚀
+""")
