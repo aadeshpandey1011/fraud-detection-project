@@ -1,7 +1,7 @@
 pandas
 pymongo
 python-dotenv
-streamlit
+
 pandas
 numpy==1.26.4
 
