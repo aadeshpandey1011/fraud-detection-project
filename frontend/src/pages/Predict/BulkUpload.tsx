@@ -184,8 +184,16 @@ const BulkUpload = () => {
   const handleUpload = async () => {
     if (fileList.length === 0) return;
 
+    const file = fileList[0];
     const formData = new FormData();
-    formData.append('file', fileList[0]);
+
+    // const formData = new FormData();
+    // formData.append('file', fileList[0]);
+    if (file && file.originFileObj) {
+      
+      formData.append("file", file.originFileObj); // ✅ Fixes the build error
+      // now send formData via axios
+    }
 
     try {
       setLoading(true);
