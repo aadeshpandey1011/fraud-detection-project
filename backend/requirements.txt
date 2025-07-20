@@ -1,12 +1,13 @@
 pandas
 pymongo
 python-dotenv
-
+pydantic
 pandas
 numpy==1.26.4
-
+uvicorn
 scikit-learn
 joblib
 matplotlib
 seaborn
 shap==0.44.1
+python-multipart
