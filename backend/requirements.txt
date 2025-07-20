@@ -11,3 +11,4 @@ matplotlib
 seaborn
 shap==0.44.1
 python-multipart
+fastapi
