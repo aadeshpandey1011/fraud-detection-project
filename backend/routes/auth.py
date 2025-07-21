@@ -21,7 +21,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter(
-    prefix="/auth",
+    prefix="/",
     tags=["Authentication"]
 )
 
