@@ -290,6 +290,9 @@ import axios from "axios";
 import { saveToken } from "../../utils/auth";
 import { useEffect } from "react";
 
+import.meta.env.VITE_API_BASE_URL
+
+
 const { Title, Text } = Typography;
 
 const Login = () => {
@@ -305,7 +308,7 @@ const Login = () => {
       formData.append("username", values.username);
       formData.append("password", values.password);
 
-      const response = await axios.post("http://127.0.0.1:8000/auth/login", formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/login`, formData, {
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
         },

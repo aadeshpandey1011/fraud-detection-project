@@ -110,6 +110,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
+import.meta.env.VITE_API_BASE_URL
+
 const { Title } = Typography;
 
 const Register = () => {
@@ -119,7 +122,7 @@ const Register = () => {
   const onFinish = async (values: { username: string; email: string; password: string }) => {
     setLoading(true);
     try {
-      const response = await axios.post('http://127.0.0.1:8000/auth/register', values);
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/register`, values);
 
       if (response.status === 200) {
         message.success('Registration successful! Please log in.');

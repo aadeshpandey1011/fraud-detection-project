@@ -164,6 +164,8 @@ const BulkUpload = () => {
   const [data, setData] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
+  import.meta.env.VITE_API_BASE_URL
+
   const props = {
     beforeUpload: (file: any) => {
       const isCsv = file.type === 'text/csv';
@@ -199,7 +201,7 @@ const BulkUpload = () => {
       setLoading(true);
       const token = getToken();
 
-      const response = await axios.post('http://127.0.0.1:8000/bulk-predict', formData, {
+      const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/bulk-predict`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${token}`, // ✅ Attach token
